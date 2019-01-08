@@ -1,0 +1,62 @@
+vehicles package
+================
+
+Submodules
+----------
+
+vehicles.bus module
+-------------------
+
+.. automodule:: vehicles.bus
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vehicles.car module
+-------------------
+
+.. automodule:: vehicles.car
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vehicles.truck module
+---------------------
+
+.. automodule:: vehicles.truck
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vehicles.utils module
+---------------------
+
+.. automodule:: vehicles.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vehicles.vehicle module
+-----------------------
+
+.. automodule:: vehicles.vehicle
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+vehicles.vehicle\_factory module
+--------------------------------
+
+.. automodule:: vehicles.vehicle_factory
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: vehicles
+    :members:
+    :undoc-members:
+    :show-inheritance:
