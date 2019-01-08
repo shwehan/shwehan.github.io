@@ -1,0 +1,32 @@
+Infrastructure package
+=================================
+
+Overview
+--------
+Infrastructure package is used to model traffic signals, stop lights, pedestrian crossing boards. Currently, the infrastructure implemented are TrafficController and Traffic Signal. TrafficController is  an attribute of a Intersection. It coordinates switching of the signals on the traffic signals with corresponding intersection. TrafficSignal is an attribute on a Node which is controlled by a TrafficController of the Intersection which has a Node. Each lane of the road ending at the Node corresponds to the TrafficSignal on that Node.
+
+
+infrastructure.traffic module
+--------------------------------------
+
+.. automodule:: core.lib.infrastructure.traffic
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+infrastructure.utils module
+------------------------------------
+
+.. automodule:: core.lib.infrastructure.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: core.lib.infrastructure
+    :members:
+    :undoc-members:
+    :show-inheritance:

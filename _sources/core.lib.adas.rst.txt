@@ -1,0 +1,66 @@
+Adas package
+=====================
+
+Overview
+--------
+ADAS stands for Advanced Driver Assistance System. This module takes a command from a decision module and it accordingly outputs a control signal which comprises of steering angle, gas, and brake.  ADAS module has two classes: Longitudinal Control, which  contains methods to output a longitudinal control (i.e. gas, brake) in different scenarios such as cruise control mode, lane change mode, turning at an intersection, stopping at a red signal etc, and Lateral Control, which contains methods to output a lateral control signal (i.e. steering angle) in different scenarios such as lane change, turning at an intersection, and lane centering etc. 
+
+In either of the above classes, the methods use a very simple PID controller which use a reference velocity or distance (in longitudinal control) and a reference heading direction (in lateral control) for generating a control signal so that vehicles next state closely match the used reference values. Since the initial goal was to have a basic frame work to integrate all the modules, no sophisticated control models was developed. As this software is modular, it is fairly straight forward to improve upon implemented control algorithms.
+
+
+adas.driving\_model module
+-----------------------------------
+
+.. automodule:: core.lib.adas.driving_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+adas.intersection\_model module
+----------------------------------------
+
+.. automodule:: core.lib.adas.intersection_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+adas.lane\_center module
+---------------------------------
+
+.. automodule:: core.lib.adas.lane_center
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+adas.lane\_change module
+---------------------------------
+
+.. automodule:: core.lib.adas.lane_change
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+adas.longitudinal\_contrl module
+-----------------------------------------
+
+.. automodule:: core.lib.adas.longitudinal_contrl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+adas.rules module
+--------------------------
+
+.. automodule:: core.lib.adas.rules
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: core.lib.adas
+    :members:
+    :undoc-members:
+    :show-inheritance:

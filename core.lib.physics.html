@@ -1,0 +1,203 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Physics package &#8212; CATS  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sensors package" href="core.lib.sensors.html" />
+    <link rel="prev" title="Maps package" href="core.lib.maps.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="core.lib.sensors.html" title="Sensors package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="core.lib.maps.html" title="Maps package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CATS  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="physics-package">
+<h1>Physics package<a class="headerlink" href="#physics-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This module is responsible for the vehicle’s movement in the simulation. Each vehicle is initialized with a physics module that determines characteristics such as engine, fuel consumption, vehicle dynamics etc. Currently, a front wheel drive model is implemented under vehicle dynamics, and can be extended later to more complex models that include tire force modeling, longitudinal and lateral forces, etc.</p>
+<p>This module takes control signal as the input from the vehicle decision module. The control signal comprises of steering, gas and brake values, which are computed by the ADAS module according to the decision taken. Currently, a simple model is implemented that does not consider all the forces acting on the vehicle, rotation of the tires, etc. Given the control signal, the velocity of the front wheels is modified as <em>v = u + a t</em>, where <em>u</em> is the velocity in the previous time instant, <em>a</em> is the gas or the brake value (negative), and <em>v</em> is the velocity calculated at the current time instant. Using this <em>v</em>, the new coordinates of the front tires are calculated, and the coordinate of the center of the line joining them is calculated. Using this center and the updated vehicle heading (from the steering signal), the updated location of the center of gravity of the vehicle is calculated, and correspondingly of the entire chasis. The updated coordinates of the vehicle (coordinates of the center of gravity, and the heading of the vehicle) is updated in the simulation so that the display can be updated.</p>
+</div>
+<div class="section" id="module-core.lib.physics.update_car_states">
+<span id="physics-update-car-states-module"></span><h2>physics.update_car_states module<a class="headerlink" href="#module-core.lib.physics.update_car_states" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="core.lib.physics.update_car_states.four_wheel_drive">
+<code class="descclassname">core.lib.physics.update_car_states.</code><code class="descname">four_wheel_drive</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>heading</em>, <em>speed</em>, <em>length</em>, <em>steering_angle</em>, <em>gas</em>, <em>brake</em>, <em>gas_to_acc=1</em>, <em>brake_to_acc=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.lib.physics.update_car_states.four_wheel_drive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulates the physics of all wheel drive model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – x coordinate of car</li>
+<li><strong>y</strong> (<em>float</em>) – y coordinate of car</li>
+<li><strong>heading</strong> (<em>float</em>) – in radians</li>
+<li><strong>speed</strong> (<em>float</em>) – in meters/sec</li>
+<li><strong>length</strong> (<em>float</em>) – in meters</li>
+<li><strong>steering_angle</strong> (<em>float</em>) – in radians</li>
+<li><strong>gas</strong> (<em>float</em>) – acceleration to give. Normalized in 0 to 1</li>
+<li><strong>brake</strong> (<em>float</em>) – brake to give. Normalized in 0 to 1</li>
+<li><strong>gas_to_acc</strong> (<em>float</em>) – a constant specifying a multiplying factor</li>
+<li><strong>brake_to_acc</strong> (<em>float</em>) – constant specifying a multiplying factor</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">(x, y, heading, speed)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not implemented yet.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.lib.physics.update_car_states.two_wheel_drive">
+<code class="descclassname">core.lib.physics.update_car_states.</code><code class="descname">two_wheel_drive</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>heading</em>, <em>speed</em>, <em>length</em>, <em>steering_angle</em>, <em>gas</em>, <em>brake</em>, <em>gas_to_acc=1</em>, <em>brake_to_acc=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.lib.physics.update_car_states.two_wheel_drive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulates the physics of a front two wheel drive model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – x coordinate of car</li>
+<li><strong>y</strong> (<em>float</em>) – y coordinate of car</li>
+<li><strong>heading</strong> (<em>float</em>) – in radians</li>
+<li><strong>speed</strong> (<em>float</em>) – in meters/sec</li>
+<li><strong>length</strong> (<em>float</em>) – in meters</li>
+<li><strong>steering_angle</strong> (<em>float</em>) – in radians</li>
+<li><strong>gas</strong> (<em>float</em>) – acceleration to give. Normalized in 0 to 1</li>
+<li><strong>brake</strong> (<em>float</em>) – brake to give. Normalized in 0 to 1</li>
+<li><strong>gas_to_acc</strong> (<em>float</em>) – constant specifying a multiplying factor</li>
+<li><strong>brake_to_acc</strong> (<em>float</em>) – constant specifying a multiplying factor</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">(x, y, heading, speed)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.lib.physics.utils">
+<span id="physics-utils-module"></span><h2>physics.utils module<a class="headerlink" href="#module-core.lib.physics.utils" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.lib.physics">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.lib.physics" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Physics package</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#module-core.lib.physics.update_car_states">physics.update_car_states module</a></li>
+<li><a class="reference internal" href="#module-core.lib.physics.utils">physics.utils module</a></li>
+<li><a class="reference internal" href="#module-core.lib.physics">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="core.lib.maps.html"
+                        title="previous chapter">Maps package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="core.lib.sensors.html"
+                        title="next chapter">Sensors package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/core.lib.physics.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="core.lib.sensors.html" title="Sensors package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="core.lib.maps.html" title="Maps package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CATS  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Ohio State University.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>
